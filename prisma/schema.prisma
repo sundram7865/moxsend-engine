@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Job {
+  id          String      @id @default(uuid())
+  status      JobStatus   @default(QUEUED)
+  totalRows   Int
+  processed   Int         @default(0)
+  failed      Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  completedAt DateTime?
+  results     Result[]
+  rowErrors   RowError[]
+}
+
+model Result {
+  id           String   @id @default(uuid())
+  jobId        String
+  job          Job      @relation(fields: [jobId], references: [id])
+  rowIndex     Int
+  name         String
+  company      String
+  industry     String
+  city         String
+  openingLine  String
+  email        String   @db.Text
+  subjectLine1 String
+  subjectLine2 String
+  processedAt  DateTime @default(now())
+}
+
+model RowError {
+  id         String   @id @default(uuid())
+  jobId      String
+  job        Job      @relation(fields: [jobId], references: [id])
+  rowIndex   Int
+  name       String?
+  error      String
+  message    String
+  failedAt   DateTime @default(now())
+}
+
+enum JobStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  PARTIAL_SUCCESS
+  FAILED
+}
