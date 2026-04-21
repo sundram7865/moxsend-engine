@@ -4,7 +4,7 @@
     "module": "commonjs",
     "lib": ["ES2022"],
     "outDir": "./dist",
-    "rootDir": "./src",
+    //"rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -22,7 +22,8 @@
     "types": ["node"],   // 👈 ADD THIS
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@prisma/*": ["./generated/prisma/enums"]
     }
   },
   "include": ["src/**/*"],
