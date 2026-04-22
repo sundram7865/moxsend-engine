@@ -12,6 +12,8 @@ const envSchema = z.object({
   WORKER_CONCURRENCY: z.coerce.number().default(5),
   ROW_MAX_RETRIES: z.coerce.number().default(2),
   LLM_TIMEOUT_MS: z.coerce.number().default(30000),
+   RABBITMQ_URL: z.string().min(1, 'RABBITMQ_URL is required'),
+  RABBITMQ_QUEUE: z.string().default('moxsend_jobs')
 });
 
 const parsed = envSchema.safeParse(process.env);

@@ -1,5 +1,5 @@
-import type {  JobStatus } from '../../../generated/prisma/enums';
-import type {Job, Result, RowError} from '../../../generated/prisma/browser';
+import type { Job, Result, RowError, JobStatus } from '@prisma/client';
+
 export type { JobStatus };
 
 export type JobWithRelations = Job & {

@@ -1,4 +1,4 @@
-import type { JobStatus } from '../../../generated/prisma/enums';
+import type { JobStatus } from '@prisma/client';
 
 // ── Upload ────────────────────────────────────────────────────────────────────
 

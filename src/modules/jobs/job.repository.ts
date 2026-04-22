@@ -1,13 +1,11 @@
 import { JobStatus } from '@prisma/client';
-import { prisma } from '../../config/prisma.config';
+import { prisma } from '@/config/prisma.config';
 import type {
   CreateJobInput,
   AppendResultInput,
   AppendErrorInput,
   JobWithRelations,
 } from './job.types';
-
-// ── Create ────────────────────────────────────────────────────────────────────
 
 export async function createJob(input: CreateJobInput): Promise<JobWithRelations> {
   return prisma.job.create({
@@ -19,8 +17,6 @@ export async function createJob(input: CreateJobInput): Promise<JobWithRelations
     include: { results: true, rowErrors: true },
   });
 }
-
-// ── Read ──────────────────────────────────────────────────────────────────────
 
 export async function findJobById(id: string): Promise<JobWithRelations | null> {
   return prisma.job.findUnique({
@@ -58,8 +54,6 @@ export async function listJobs(
 
   return { jobs: jobs as unknown as JobWithRelations[], total };
 }
-
-// ── Update ────────────────────────────────────────────────────────────────────
 
 export async function updateJobStatus(id: string, status: JobStatus): Promise<void> {
   await prisma.job.update({
